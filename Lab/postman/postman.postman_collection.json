@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "94a89e52-3ef7-45bc-8127-5ae85963f73b",
+		"name": "postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42740166"
+	},
+	"item": [
+		{
+			"name": "aula 4",
+			"item": [
+				{
+					"name": "localiza pokemon",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "nao localiza pokemon (nao existe)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "endpoint falho localiza pokemon",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
