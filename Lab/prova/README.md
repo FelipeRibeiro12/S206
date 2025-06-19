@@ -24,7 +24,7 @@ Esta seção fornece instruções abrangentes para configurar e executar as suit
    cd Lab
    cd prova
    ```
-   
+
 2. Instale as dependências:
 
    ```bash
@@ -42,10 +42,11 @@ Esta seção fornece instruções abrangentes para configurar e executar as suit
     ```bash
     npx cypress run --reporter mochawesome
     ```
+
 -> O relatório será gerado na pasta `cypress/reports/mochawesome-report`.
 -> Para visualizar o relatório, abra o arquivo `.html` em seu navegador.
 
-#### Suite de testes UI (Cypress) e gerar relatório
+#### Suite de testes API (Postman) e gerar relatório
 
 -> Testes realizados em: https://reqres.in
 
@@ -53,6 +54,7 @@ Esta seção fornece instruções abrangentes para configurar e executar as suit
 cd postman
 newman run prova.postman_collection -r htmlextra
 ```
+
 -> O relatório será gerado na pasta `postman/newman`.
 -> Para visualizar o relatório, abra o arquivo `.html` em seu navegador.
 
