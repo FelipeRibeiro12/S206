@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "c99f523d-395a-4d2d-9d20-497adf8b8de0",
+		"name": "L2 - Alunos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42740166"
+	},
+	"item": [
+		{
+			"name": "cookie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.environment.set('Cookie', response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/get-csrf-token",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get-csrf-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"dimitri@\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1 cadastrar novo aluno",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cadastrado com sucesso\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"teste222@ges.inatel.br\",\r\n    \"nome\": \"teste222\",\r\n    \"password\": \"teste222\",\r\n    \"acesso\": \"ALUNO\",\r\n    \"ativo\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Aluno/add",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Aluno",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 encontrar aluno cadastrado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Aluno encontrado\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Aluno/get/teste222@ges.inatel.br",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Aluno",
+						"get",
+						"teste222@ges.inatel.br"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 não encontrar aluno não cadastrado [FALHA]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Aluno não encontrado\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Aluno/get/teste106@ges.inatel.br",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Aluno",
+						"get",
+						"teste106@ges.inatel.br"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 listar todos alunos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Alunos encontrados\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Aluno/all",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Aluno",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5 deletar aluno",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Deletado com sucesso\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.have.property('ativo', 0);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Aluno/delete/teste222@ges.inatel.br",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Aluno",
+						"delete",
+						"teste222@ges.inatel.br"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6 nega cadastrar novo aluno sem senha [FALHA]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Campo senha vazio\", function() {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"teste224@ges.inatel.br\",\r\n    \"nome\": \"teste224\",\r\n    \"acesso\": \"ALUNO\",\r\n    \"ativo\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Aluno/add",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Aluno",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7 cadastra novo aluno com email invalido (sem @x.x...) [FALHA]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cadastrado com sucesso\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"teste222\",\r\n    \"nome\": \"teste222\",\r\n    \"password\": \"teste222\",\r\n    \"acesso\": \"ALUNO\",\r\n    \"ativo\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Aluno/add",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Aluno",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

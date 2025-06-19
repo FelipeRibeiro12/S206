@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "a6cfb192-fb27-4657-844e-569140911d4e",
+		"name": "S206L - 6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42740166"
+	},
+	"item": [
+		{
+			"name": "cookie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/cookies",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cookies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cookie/set",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/cookies/set?freeform={{cookie}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cookies",
+						"set"
+					],
+					"query": [
+						{
+							"key": "freeform",
+							"value": "{{cookie}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/cookies/delete?freeform={{cookie}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cookies",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "freeform",
+							"value": "{{cookie}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
